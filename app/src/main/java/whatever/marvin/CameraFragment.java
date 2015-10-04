@@ -85,6 +85,7 @@ public class CameraFragment extends Fragment
         Bitmap aScaled = Bitmap.createScaledBitmap(prev,20,20,false);
         Bitmap bScaled = Bitmap.createScaledBitmap(curr,20,20,false);
         int sum = 0;
+        int count = 0;
         for(int i=0;i<aScaled.getWidth();i++){
             for(int j=0;j<aScaled.getHeight();j++){
                 //Log.i(TAG,"HI"+String.valueOf(aScaled.getPixel(i,j)));
@@ -101,10 +102,11 @@ public class CameraFragment extends Fragment
                 int bC = Color.blue(currPixel);
 
                 sum += Math.abs(r-rC)+Math.abs(g-gC)+Math.abs(b-bC);
+                count++;
             }
         }
-        Log.i(TAG,String.valueOf(sum));
-        if(sum>2500){
+        // Log.i(TAG,String.valueOf(sum/count));
+        if((sum/count)>30){
             return true;
         }
         return false;
@@ -136,7 +138,7 @@ public class CameraFragment extends Fragment
             if(prevBitmap!=null){
                 if(compareDifferences(currBitmap,prevBitmap)){
                     //GO PANIC
-                    Log.i(TAG,"We should panic");
+                    //Log.i(TAG,"We should panic");
                     mListener.panic();
                 }
             }

@@ -14,12 +14,18 @@ public class MainActivity extends Activity implements CameraFragment.OnFragmentI
     Vibrator v;
     long[] vPattern = {0, 1000, 200};
 
+    MarvinFragment marvin = null;
+
     public void panic(){
 
         // vibrate !!!
-        Log.i("MainActivity", "I'M PANICKING");
+        // Log.i("MainActivity", "I'M PANICKING");
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(vPattern, -1);
+
+        if (marvin != null) {
+            marvin.panic();
+        }
 
     }
 
@@ -33,12 +39,8 @@ public class MainActivity extends Activity implements CameraFragment.OnFragmentI
         // Hides notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_main);
+        marvin = (MarvinFragment) getFragmentManager().findFragmentById(R.layout.fragment_marvin);
 
-        if (null == savedInstanceState) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.container, CameraFragment.newInstance())
-                    .commit();
-        }
+        setContentView(R.layout.activity_main);
     }
 }
