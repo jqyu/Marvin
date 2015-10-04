@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Marvin</string>
+
+    <string name="dummy_content">HELLO\nMARVIN</string>
+</resources>
