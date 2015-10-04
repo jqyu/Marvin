@@ -5,13 +5,23 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.net.Uri;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements CameraFragment.OnFragmentInteractionListener {
 
     Vibrator v;
     long[] vPattern = {0, 1000, 200};
+
+    public void panic(){
+
+        // vibrate !!!
+        Log.i("MainActivity", "I'M PANICKING");
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(vPattern, -1);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +40,5 @@ public class MainActivity extends Activity {
                     .replace(R.id.container, CameraFragment.newInstance())
                     .commit();
         }
-
-        // vibrate !!!
-        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(vPattern, 0);
     }
 }

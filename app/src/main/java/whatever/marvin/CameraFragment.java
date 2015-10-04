@@ -137,6 +137,7 @@ public class CameraFragment extends Fragment
                 if(compareDifferences(currBitmap,prevBitmap)){
                     //GO PANIC
                     Log.i(TAG,"We should panic");
+                    mListener.panic();
                 }
             }
             prevBitmap = currBitmap;
@@ -309,12 +310,12 @@ public class CameraFragment extends Fragment
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) context;
+            mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
+            throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
@@ -326,7 +327,7 @@ public class CameraFragment extends Fragment
     }
 
     public interface OnFragmentInteractionListener {
-        void onPanicChange(boolean panic);
+        void panic();
     }
 
     @Override
