@@ -36,7 +36,7 @@ public class MainActivity extends Activity implements CameraFragment.OnFragmentI
         v.vibrate(vPattern, 0);
     }
 
-    public void onFragmentInteraction(Uri uri) {
+    public void onPanicChange(boolean panic) {
         // does nothing
     }
 }
