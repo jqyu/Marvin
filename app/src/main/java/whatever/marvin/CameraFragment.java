@@ -25,6 +25,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.RectF;
@@ -77,8 +79,41 @@ public class CameraFragment extends Fragment
      * {@link TextureView.SurfaceTextureListener} handles several lifecycle events on a
      * {@link TextureView}.
      */
+
+    private static boolean compareDifferences(Bitmap prev, Bitmap curr)
+    {
+        Bitmap aScaled = Bitmap.createScaledBitmap(prev,20,20,false);
+        Bitmap bScaled = Bitmap.createScaledBitmap(curr,20,20,false);
+        int sum = 0;
+        for(int i=0;i<aScaled.getWidth();i++){
+            for(int j=0;j<aScaled.getHeight();j++){
+                //Log.i(TAG,"HI"+String.valueOf(aScaled.getPixel(i,j)));
+                int prevPixel = aScaled.getPixel(i,j);
+                int a = Color.alpha(prevPixel);
+                int r = Color.red(prevPixel);
+                int g = Color.green(prevPixel);
+                int b = Color.blue(prevPixel);
+
+                int currPixel = bScaled.getPixel(i,j);
+                int aC = Color.alpha(currPixel);
+                int rC = Color.red(currPixel);
+                int gC = Color.green(currPixel);
+                int bC = Color.blue(currPixel);
+
+                sum += Math.abs(r-rC)+Math.abs(g-gC)+Math.abs(b-bC);
+            }
+        }
+        Log.i(TAG,String.valueOf(sum));
+        if(sum>2500){
+            return true;
+        }
+        return false;
+    }
+
     private final TextureView.SurfaceTextureListener mSurfaceTextureListener
             = new TextureView.SurfaceTextureListener() {
+
+        Bitmap prevBitmap = null;
 
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture texture, int width, int height) {
@@ -97,7 +132,14 @@ public class CameraFragment extends Fragment
 
         @Override
         public void onSurfaceTextureUpdated(SurfaceTexture texture) {
-            Log.i(TAG, "UPD8!");
+            Bitmap currBitmap = mTextureView.getBitmap();
+            if(prevBitmap!=null){
+                if(compareDifferences(currBitmap,prevBitmap)){
+                    //GO PANIC
+                    Log.i(TAG,"We should panic");
+                }
+            }
+            prevBitmap = currBitmap;
         }
 
     };
