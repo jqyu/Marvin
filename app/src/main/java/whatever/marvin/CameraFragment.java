@@ -106,7 +106,7 @@ public class CameraFragment extends Fragment
             }
         }
         // Log.i(TAG,String.valueOf(sum/count));
-        if((sum/count)>30){
+        if((sum/count)>20){
             return true;
         }
         return false;
@@ -116,6 +116,9 @@ public class CameraFragment extends Fragment
             = new TextureView.SurfaceTextureListener() {
 
         Bitmap prevBitmap = null;
+        int throttle = 0;
+        boolean panic = false;
+        boolean prevPanic = false;
 
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture texture, int width, int height) {
@@ -134,9 +137,18 @@ public class CameraFragment extends Fragment
 
         @Override
         public void onSurfaceTextureUpdated(SurfaceTexture texture) {
+            if (throttle > 0) {
+                throttle--;
+                return;
+            }
             Bitmap currBitmap = mTextureView.getBitmap();
-            if(prevBitmap!=null){
-                mListener.onPanicChange(compareDifferences(currBitmap,prevBitmap));
+            if (prevBitmap != null) {
+                panic = compareDifferences(currBitmap, prevBitmap);
+                mListener.onPanicChange(panic);
+                if (panic != prevPanic) {
+                    prevPanic = panic;
+                    throttle = 15;
+                }
             }
             prevBitmap = currBitmap;
         }
