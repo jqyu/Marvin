@@ -65,29 +65,13 @@ import java.util.concurrent.TimeUnit;
 public class CameraFragment extends Fragment
         implements FragmentCompat.OnRequestPermissionsResultCallback {
 
-    /**
-     * Conversion from screen rotation to JPEG orientation.
-     */
-    private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
-
-    static {
-        ORIENTATIONS.append(Surface.ROTATION_0, 90);
-        ORIENTATIONS.append(Surface.ROTATION_90, 0);
-        ORIENTATIONS.append(Surface.ROTATION_180, 270);
-        ORIENTATIONS.append(Surface.ROTATION_270, 180);
-    }
 
     /**
      * Tag for the {@link Log}.
      */
     private static final String TAG = "CameraFragment";
-
-    /**
-     * Camera state: Showing camera preview.
-     */
-    private static final int STATE_PREVIEW = 0;
 
     /**
      * {@link TextureView.SurfaceTextureListener} handles several lifecycle events on a
@@ -113,6 +97,7 @@ public class CameraFragment extends Fragment
 
         @Override
         public void onSurfaceTextureUpdated(SurfaceTexture texture) {
+            Log.i(TAG, "UPD8!");
         }
 
     };
@@ -299,7 +284,7 @@ public class CameraFragment extends Fragment
     }
 
     public interface OnFragmentInteractionListener {
-        public void onPanicChange(boolean panic);
+        void onPanicChange(boolean panic);
     }
 
     @Override
@@ -590,10 +575,10 @@ public class CameraFragment extends Fragment
             // We cast here to ensure the multiplications won't overflow
             return Long.signum((long) lhs.getWidth() * lhs.getHeight() -
                     (long) rhs.getWidth() * rhs.getHeight());
-        }
 
     }
 
+}
     /**
      * Shows an error message dialog.
      */
