@@ -2,4 +2,9 @@
 
     <color name="black_overlay">#66000000</color>
 
+    <color name="green_happy">#70FF70</color>
+    <color name="green_overlay">#3370FF70</color>
+    <color name="red_panic">#FF3355</color>
+    <color name="red_overlay">#33FF3355</color>
+
 </resources>

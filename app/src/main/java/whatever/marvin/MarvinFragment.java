@@ -1,6 +1,5 @@
 package whatever.marvin;
 
-
 import android.os.Bundle;
 import android.app.Fragment;
 
@@ -9,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 
 /**
@@ -16,8 +17,24 @@ import android.view.ViewGroup;
  */
 public class MarvinFragment extends Fragment {
 
+    FrameLayout mContainer;
+    TextView mFace;
+
+
     public void panic() {
-        Log.i("MarvinFragment","hello i received a thing");
+        if (mContainer == null) {
+            mContainer = (FrameLayout) getView().findViewById(R.id.fragment_marvin);
+        }
+        if (mContainer != null) {
+            mContainer.setBackgroundColor(getResources().getColor(R.color.red_overlay));
+        }
+        if (mFace == null) {
+            mFace = (TextView) getView().findViewById(R.id.marvin_face);
+        }
+        if (mFace != null) {
+            mFace.setText(getString(R.string.marvin_panic));
+            mFace.setBackgroundColor(getResources().getColor(R.color.red_panic));
+        }
     }
 
 

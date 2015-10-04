@@ -3,8 +3,8 @@
 
     <string name="dummy_content">HELLO\nMARVIN</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="marvin_happy">:)</string>
+    <string name="marvin_panic">:(</string>
 
     <string name="description_info">Info</string>
     <string name="request_permission">This sample needs camera permission.</string>

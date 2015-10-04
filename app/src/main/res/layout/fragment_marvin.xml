@@ -1,9 +1,26 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="whatever.marvin.MarvinFragment">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/marvin_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green_overlay"
+    tools:context="whatever.marvin.MarvinFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <TextView
+        android:id="@+id/marvin_face"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_gravity="center"
+        android:paddingTop="0dp"
+        android:paddingBottom="20dp"
+        android:gravity="center"
+        android:rotation="90"
+        android:background="@color/green_happy"
+        android:text="@string/marvin_happy"
+        android:textColor="#ffffff"
+        android:textSize="120dp"
+        android:textStyle="bold"/>
 
 </FrameLayout>
