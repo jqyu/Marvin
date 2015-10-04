@@ -19,6 +19,7 @@ import android.view.ViewGroup;
  */
 public class CameraFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
+    private AutoFitTextureView mTextureView;
 
     public static CameraFragment newInstance() {
         return new CameraFragment();
@@ -38,6 +39,11 @@ public class CameraFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_camera, container, false);
+    }
+
+    @Override
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
+        mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
     }
 
     @Override
