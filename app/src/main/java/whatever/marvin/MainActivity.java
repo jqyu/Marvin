@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class MainActivity extends Activity implements CameraFragment.OnFragmentInteractionListener {
+public class MainActivity extends Activity {
 
     Vibrator v;
     long[] vPattern = {0, 1000, 200};
@@ -34,9 +34,5 @@ public class MainActivity extends Activity implements CameraFragment.OnFragmentI
         // vibrate !!!
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(vPattern, 0);
-    }
-
-    public void onPanicChange(boolean panic) {
-        // does nothing
     }
 }
