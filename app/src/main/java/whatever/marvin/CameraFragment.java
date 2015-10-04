@@ -136,11 +136,7 @@ public class CameraFragment extends Fragment
         public void onSurfaceTextureUpdated(SurfaceTexture texture) {
             Bitmap currBitmap = mTextureView.getBitmap();
             if(prevBitmap!=null){
-                if(compareDifferences(currBitmap,prevBitmap)){
-                    //GO PANIC
-                    //Log.i(TAG,"We should panic");
-                    mListener.panic();
-                }
+                mListener.onPanicChange(compareDifferences(currBitmap,prevBitmap));
             }
             prevBitmap = currBitmap;
         }
@@ -329,7 +325,7 @@ public class CameraFragment extends Fragment
     }
 
     public interface OnFragmentInteractionListener {
-        void panic();
+        void onPanicChange(boolean panic);
     }
 
     @Override

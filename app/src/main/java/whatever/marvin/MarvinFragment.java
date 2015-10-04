@@ -21,19 +21,19 @@ public class MarvinFragment extends Fragment {
     TextView mFace;
 
 
-    public void panic() {
+    public void onPanicChange(boolean panic) {
         if (mContainer == null) {
             mContainer = (FrameLayout) getView().findViewById(R.id.fragment_marvin);
         }
         if (mContainer != null) {
-            mContainer.setBackgroundColor(getResources().getColor(R.color.red_overlay));
+            mContainer.setBackgroundColor(getResources().getColor(panic ? R.color.red_overlay : R.color.green_overlay));
         }
         if (mFace == null) {
             mFace = (TextView) getView().findViewById(R.id.marvin_face);
         }
         if (mFace != null) {
-            mFace.setText(getString(R.string.marvin_panic));
-            mFace.setBackgroundColor(getResources().getColor(R.color.red_panic));
+            mFace.setText(getString(panic ? R.string.marvin_panic : R.string.marvin_happy));
+            mFace.setBackgroundColor(getResources().getColor(panic ? R.color.red_panic : R.color.green_happy));
         }
     }
 

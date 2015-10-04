@@ -3,10 +3,10 @@ package whatever.marvin;
 import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
-import android.view.SurfaceHolder;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -19,20 +19,24 @@ public class MainActivity extends Activity implements CameraFragment.OnFragmentI
 
     MarvinFragment marvin = null;
     MediaPlayer mediaPlayer;
-    public void panic(){
+    public void onPanicChange(boolean panic){
 
         // vibrate !!!
         // Log.i("MainActivity", "I'M PANICKING");
-        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(vPattern, -1);
 
         // lol async hacks
         if (marvin == null) {
             marvin = (MarvinFragment) getFragmentManager().findFragmentById(R.id.fragment_marvin);
         }
         if (marvin != null) {
-            marvin.panic();
+            marvin.onPanicChange(panic);
         }
+
+        if (!panic) return;
+
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(vPattern, -1);
+
         Uri uri = null;
         if(mediaPlayer!=null) {
             if (!mediaPlayer.isPlaying()) {
