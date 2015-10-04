@@ -2,6 +2,7 @@ package whatever.marvin;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class MainActivity extends Activity implements CameraFragment.OnFragmentI
 
     MarvinFragment marvin = null;
     MediaPlayer mediaPlayer;
+
     public void onPanicChange(boolean panic){
 
         // vibrate !!!
@@ -42,7 +44,7 @@ public class MainActivity extends Activity implements CameraFragment.OnFragmentI
             if (!mediaPlayer.isPlaying()) {
                 Random gen = new Random();
                 int i = gen.nextInt(5);
-                Log.i("MainActivity",String.valueOf(i));
+                Log.i("MainActivity", String.valueOf(i));
                 switch (i) {
                     case 0:
                         mediaPlayer = MediaPlayer.create(this, R.raw.robonoise_02);
@@ -60,6 +62,14 @@ public class MainActivity extends Activity implements CameraFragment.OnFragmentI
                         mediaPlayer = MediaPlayer.create(this, R.raw.robonoise_03);
                         break;
                 }
+
+                setVolumeControlStream(AudioManager.STREAM_MUSIC);
+                AudioManager audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+                final int initVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                final int maxVolume  = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0);
+
+                mediaPlayer.setVolume(1,1);
                 mediaPlayer.start();
             }
         }
@@ -85,6 +95,13 @@ public class MainActivity extends Activity implements CameraFragment.OnFragmentI
                     mediaPlayer = MediaPlayer.create(this, R.raw.robonoise_03);
                     break;
             }
+            setVolumeControlStream(AudioManager.STREAM_MUSIC);
+            AudioManager audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+            final int initVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            final int maxVolume  = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0);
+
+            mediaPlayer.setVolume(1,1);
             mediaPlayer.start();
         }
     }

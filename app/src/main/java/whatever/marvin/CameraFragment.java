@@ -106,7 +106,7 @@ public class CameraFragment extends Fragment
             }
         }
         // Log.i(TAG,String.valueOf(sum/count));
-        if((sum/count)>20){
+        if((sum/count)>30){
             return true;
         }
         return false;
