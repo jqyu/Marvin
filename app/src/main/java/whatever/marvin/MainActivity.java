@@ -5,7 +5,6 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.net.Uri;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.Window;
@@ -27,6 +26,10 @@ public class MainActivity extends Activity implements CameraFragment.OnFragmentI
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(vPattern, -1);
 
+        // lol async hacks
+        if (marvin == null) {
+            marvin = (MarvinFragment) getFragmentManager().findFragmentById(R.id.fragment_marvin);
+        }
         if (marvin != null) {
             marvin.panic();
         }
@@ -92,7 +95,11 @@ public class MainActivity extends Activity implements CameraFragment.OnFragmentI
         // Hides notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        marvin = (MarvinFragment) getFragmentManager().findFragmentById(R.layout.fragment_marvin);
+        if (marvin != null) {
+            Log.i("MainActivity", "marvin is: "+marvin.toString());
+        } else {
+            Log.i("MainActivity", "no marvin ]:");
+        }
 
         setContentView(R.layout.activity_main);
     }
